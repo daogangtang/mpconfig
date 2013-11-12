@@ -1,4 +1,3 @@
-
 mp_doc.keycodes['alt-j']   = "move_down";
 mp_doc.keycodes['alt-k']   = "move_up";
 mp_doc.keycodes['alt-h']   = "move_left";
@@ -38,8 +37,8 @@ mp_doc.keycodes['ctrl-a']   = "mark_all";
 mp.actions['seek_word_under_cursor_next'] = sub { mp.active()->search_dir(mp.active()->get_word(), 1);};
 mp.actions['seek_word_under_cursor_prev'] = sub { mp.active()->search_dir(mp.active()->get_word(), -1);};
 
-mp_doc.keycodes['alt-i']   = "seek_word_under_cursor_next";
-mp_doc.keycodes['alt-o']   = "seek_word_under_cursor_prev";
+mp_doc.keycodes['alt-r']   = "seek_word_under_cursor_next";
+mp_doc.keycodes['alt-v']   = "seek_word_under_cursor_prev";
 
 mp_doc.keycodes['alt-x']   = "menu";
 
