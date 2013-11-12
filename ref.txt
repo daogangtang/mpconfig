@@ -1,0 +1,9 @@
+http://triptico.com/download/mp/mp-5.2.6.tar.gz
+
+sudo apt-get install libncursesw5-dev
+./config.sh --without-qt --whihout-gtk
+make
+sudo make install
+sudo ln -sf /usr/local/bin/mp-5 /usr/local/bin/e
+
+https://raw.github.com/daogangtang/mpconfig/master/.mp.mpsl
