@@ -1,5 +1,5 @@
 mp.config.auto_indent = 1;
-mp.config.word_wrap = 150;
+mp.config.word_wrap = 1024;
 
 
 mp.actions['seek_word_under_cursor_next'] = sub { mp.active()->search_dir(mp.active()->get_word(), 1);};
@@ -55,22 +55,25 @@ mp_doc.keycodes['alt-n']   = "next";
 mp_doc.keycodes['alt-i']   = "seek_next";
 mp_doc.keycodes['alt-o']   = "seek_prev";
 mp_doc.keycodes['alt-x']   = "menu";
+mp_doc.keycodes['alt-t']   = "goto";
 mp_doc.keycodes['alt-s']   = "load_session";
 
 mp_doc.keycodes['ctrl-p']   = "save_session";
 mp_doc.keycodes['ctrl-y']   = "copy_line";
+mp_doc.keycodes['ctrl-r']   = "redo";
 
 mp_doc.keycodes['ctrl-b']   = "mark";
 mp_doc.keycodes['ctrl-u']   = "unmark";
 mp_doc.keycodes['ctrl-n']   = "new";
 
 mp_doc.keycodes['ctrl-a']   = "mark_all";
-mp_doc.keycodes['ctrl-d']   = "delete";
 mp_doc.keycodes['ctrl-k']   = "yank_line";
 mp_doc.keycodes['ctrl-i']   = "insert_real_tab";
 mp_doc.keycodes['ctrl-g']   = "grep";
 mp_doc.keycodes['ctrl-j']   = "delete_line";
 mp_doc.keycodes['ctrl-d']   = "duplicate_line";
+mp_doc.keycodes['ctrl-w']   = "unindent_block";
+mp_doc.keycodes['ctrl-e']   = "indent_block";
 
 mp.keycodes['ctrl-l'] = {
 	'h'	=> 'hex_view'
