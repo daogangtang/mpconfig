@@ -1,5 +1,38 @@
 mp.config.auto_indent = 1;
-mp.config.word_wrap = 75;
+mp.config.word_wrap = 150;
+
+
+mp.actions['seek_word_under_cursor_next'] = sub { mp.active()->search_dir(mp.active()->get_word(), 1);};
+mp.actions['seek_word_under_cursor_prev'] = sub { mp.active()->search_dir(mp.active()->get_word(), -1);};
+mp.actions['duplicate_line'] = sub (d) { 
+	d.txt.x=0;  
+	d->mark(); 
+	d->move(d.move_eol);  
+	d->mark(); 
+	d->busy(1)->copy()->unmark()->busy(0); 
+	d->insert_newline();
+	d.txt.x=0;  
+ 	d->busy(1)->store_undo()->paste()->busy(0); 
+	d->move(d.move_bol);  
+	
+};
+
+mp.actions['yank_line'] = sub (d) { 
+	d->move(d.move_bol);  
+	d->mark(); 
+	d->move(d.move_eol);  
+	d->mark(); 
+	d->busy(1)->copy()->unmark()->busy(0); 
+	d->store_undo()->delete_line();
+};
+
+mp.actions['copy_line'] = sub (d) { 
+	d->move(d.move_bol);  
+	d->mark(); 
+	d->move(d.move_eol);  
+	d->mark(); 
+	d->busy(1)->copy()->unmark()->busy(0); 
+};
 
 mp_doc.keycodes['alt-j']   = "move_down";
 mp_doc.keycodes['alt-k']   = "move_up";
@@ -7,44 +40,37 @@ mp_doc.keycodes['alt-h']   = "move_left";
 mp_doc.keycodes['alt-l']   = "move_right";
 mp_doc.keycodes['alt-a']   = "move_bol";
 mp_doc.keycodes['alt-e']   = "move_eol";
-mp_doc.keycodes['alt-s']   = "move_bof";
-mp_doc.keycodes['alt-g']   = "move_eof";
-mp_doc.keycodes['alt-n']   = "move_pgdn";
-mp_doc.keycodes['alt-p']   = "move_pgup";
-
-mp_doc.keycodes['alt-f']   = "goto";
+mp_doc.keycodes['alt-q']   = "move_bof";
+mp_doc.keycodes['alt-p']   = "move_eof";
+mp_doc.keycodes['alt-v']   = "move_pgdn";
+mp_doc.keycodes['alt-r']   = "move_pgup";
+mp_doc.keycodes['alt-f']   = "seek_word_under_cursor_next";
+mp_doc.keycodes['alt-w']   = "seek_word_under_cursor_prev";
 mp_doc.keycodes['alt-,']   = "move_section_down";
 mp_doc.keycodes['alt-.']   = "move_section_up";
-
-mp_doc.keycodes['alt-d']   = "document_list";
-mp_doc.keycodes['alt-b']   = "next";
 mp_doc.keycodes['alt-c']   = "section_list";
+mp_doc.keycodes['alt-u']   = "complete";
+mp_doc.keycodes['alt-b']   = "document_list";
+mp_doc.keycodes['alt-n']   = "next";
+mp_doc.keycodes['alt-i']   = "seek_next";
+mp_doc.keycodes['alt-o']   = "seek_prev";
+mp_doc.keycodes['alt-x']   = "menu";
+mp_doc.keycodes['alt-s']   = "load_session";
 
+mp_doc.keycodes['ctrl-p']   = "save_session";
+mp_doc.keycodes['ctrl-y']   = "copy_line";
 
 mp_doc.keycodes['ctrl-b']   = "mark";
 mp_doc.keycodes['ctrl-u']   = "unmark";
 mp_doc.keycodes['ctrl-n']   = "new";
-mp_doc.keycodes['alt-m']   = "seek_next";
-mp_doc.keycodes['ctrl-p']   = "seek_prev";
 
-mp_doc.keycodes['ctrl-y']   = "save_session";
-mp_doc.keycodes['alt-y']   = "load_session";
-
-mp_doc.keycodes['alt-u']   = "complete";
-mp_doc.keycodes['ctrl-k']   = "delete_line";
-mp_doc.keycodes['ctrl-i']   = "insert_real_tab";
-mp_doc.keycodes['ctrl-d']   = "delete";
-mp_doc.keycodes['ctrl-g']   = "grep";
-mp_doc.keycodes['ctrl-j']   = "open_under_cursor";
 mp_doc.keycodes['ctrl-a']   = "mark_all";
-
-mp.actions['seek_word_under_cursor_next'] = sub { mp.active()->search_dir(mp.active()->get_word(), 1);};
-mp.actions['seek_word_under_cursor_prev'] = sub { mp.active()->search_dir(mp.active()->get_word(), -1);};
-
-mp_doc.keycodes['alt-v']   = "seek_word_under_cursor_next";
-mp_doc.keycodes['alt-r']   = "seek_word_under_cursor_prev";
-
-mp_doc.keycodes['alt-x']   = "menu";
+mp_doc.keycodes['ctrl-d']   = "delete";
+mp_doc.keycodes['ctrl-k']   = "yank_line";
+mp_doc.keycodes['ctrl-i']   = "insert_real_tab";
+mp_doc.keycodes['ctrl-g']   = "grep";
+mp_doc.keycodes['ctrl-j']   = "delete_line";
+mp_doc.keycodes['ctrl-d']   = "duplicate_line";
 
 mp.keycodes['ctrl-l'] = {
 	'h'	=> 'hex_view'
